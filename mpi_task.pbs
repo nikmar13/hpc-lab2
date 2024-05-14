@@ -3,8 +3,8 @@
 #PBS -l nodes=2:ppn=2                                                                                                                                                                                            
 #PBS -j oe                                                                                                                                                                                                       
 #PBS -o mpi_output.log                                                                                                                                                                                           
-#PBS -W stagein=statistics.log@plus7.cluster.univ.kiev.ua:/home/grid/testbed/tb493/hpc-lab2/statistics.log                                                                                                       
-#PBS -W stageout=statistics.log@plus7.cluster.univ.kiev.ua:/home/grid/testbed/tb493/hpc-lab2/statistics.log                                                                                                      
+#PBS -W stagein=/tmp/statistics.log@plus7.cluster.univ.kiev.ua:/home/grid/testbed/tb493/hpc-lab2/statistics.log                                                                                                       
+#PBS -W stageout=/tmp/statistics.log@plus7.cluster.univ.kiev.ua:/home/grid/testbed/tb493/hpc-lab2/statistics.log                                                                                                      
                                                                                                                                                                                                                  
 cd $PBS_O_WORKDIR                                                                                                                                                                                                
                                                                                                                                                                                                                  
@@ -18,12 +18,12 @@ mpirun -np 4 ./hello > mpi_output.log-$PBS_JOBID
 declare -A node_process_count                                                                                                                                                                                    
                                                                                                                                                                                                                  
 # Зчитування існуючої статистики                                                                                                                                                                                 
-if [[ -f statistics.log ]]; then                                                                                                                                                                                 
+if [[ -f /tmp/statistics.log ]]; then                                                                                                                                                                                 
     while read -r line; do                                                                                                                                                                                       
         node=$(echo $line | cut -d' ' -f1)                                                                                                                                                                       
         count=$(echo $line | cut -d' ' -f2)                                                                                                                                                                      
         node_process_count[$node]=$count                                                                                                                                                                         
-    done < statistics.log                                                                                                                                                                                        
+    done < /tmp/statistics.log                                                                                                                                                                                        
 fi                                                                                                                                                                                                               
                                                                                                                                                                                                                  
 # Парсинг нового лог-файлу                                                                                                                                                                                       
@@ -38,7 +38,7 @@ while read -r line; do
 done < "$log_file"                                                                                                                                                                                               
                                                                                                                                                                                                                  
 # Оновлення статистики                                                                                                                                                                                           
-> statistics.log                                                                                                                                                                                                 
+> /tmp/statistics.log                                                                                                                                                                                                 
 for node in "${!node_process_count[@]}"; do                                                                                                                                                                      
-    echo "$node ${node_process_count[$node]}" >> statistics.log                                                                                                                                                  
+    echo "$node ${node_process_count[$node]}" >> /tmp/statistics.log                                                                                                                                                  
 done
