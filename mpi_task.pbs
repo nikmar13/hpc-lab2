@@ -3,8 +3,8 @@
 #PBS -l nodes=2:ppn=2                                                                                                                                                                                            
 #PBS -j oe                                                                                                                                                                                                       
 #PBS -o mpi_output.log                                                                                                                                                                                           
-#PBS -W stagein=/tmp/statistics.log@plus7.cluster.univ.kiev.ua:/home/grid/testbed/tb493/hpc-lab2/statistics.log                                                                                                       
-#PBS -W stageout=/tmp/statistics.log@plus7.cluster.univ.kiev.ua:/home/grid/testbed/tb493/hpc-lab2/statistics.log                                                                                                      
+#PBS -W stagein=statistics.log@plus7.cluster.univ.kiev.ua:/home/grid/testbed/tb493/hpc-lab2/statistics.log                                                                                                       
+#PBS -W stageout=statistics.log@plus7.cluster.univ.kiev.ua:/home/grid/testbed/tb493/hpc-lab2/statistics.log                                                                                                      
                                                                                                                                                                                                                  
 cd $PBS_O_WORKDIR                                                                                                                                                                                                
                                                                                                                                                                                                                  
