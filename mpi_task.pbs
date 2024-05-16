@@ -4,10 +4,17 @@
 #PBS -j oe                                                                                                                                                                                                       
 #PBS -o mpi_output.log                                                                                                                                                                                           
 #PBS -W stagein=statistics.log@plus7.cluster.univ.kiev.ua:/home/grid/testbed/tb493/hpc-lab2/statistics.log                                                                                                       
-#PBS -W stageout=statistics.log@plus7.cluster.univ.kiev.ua:/home/grid/testbed/tb493/hpc-lab2/statistics.log                                                                                                      
+#PBS -W stageout=statistics.log@plus7.cluster.univ.kiev.ua:/home/grid/testbed/tb493/hpc-lab2/statistics-o.log                                                                                                      
                                                                                                                                                                                                                  
-cd $PBS_O_WORKDIR                                                                                                                                                                                                
-                                                                                                                                                                                                                 
+cd $PBS_O_WORKDIR
+ls -la
+ls -la ../
+echo "cat statistics file"
+cat /tmp/statistics.log
+echo "cat statistics file"
+cat statistics.log
+echo "cat statistics file"
+cat ../statistics.log
 # Запуск MPI-програми                                                                                                                                                                                            
 module load icc/18.0  openmpi/3.1.3                                                                                                                                                                              
 module load lammps                                                                                                                                                                                               
